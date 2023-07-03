@@ -1,10 +1,6 @@
 package main
 
-import (
-	"fmt"
-	"math/rand"
-	"time"
-)
+import "fmt"
 
 // Constant
 const A int = 5
@@ -13,21 +9,7 @@ const (
 	C = 4
 )
 
-func longRunningTask() <-chan int32 {
-	r := make(chan int32)
-
-	go func() {
-		defer close(r)
-
-		// Simulate a workload.
-		time.Sleep(time.Second * 3)
-		r <- rand.Int31n(100)
-	}()
-
-	return r
-}
-
-func main2() {
+func main() {
 	// number := "35"
 	// var str string = "99================"
 	// var a, b int = 5, 6
@@ -68,9 +50,14 @@ func main2() {
 
 	// fmt.Printf("a\t%v\n", b)
 	// // fmt.Printf("b\t%v\n", b)
-	// fmt.Printf("kfldskfld\n")
+	// result := OutGo()
+	posts := Async()
+	for i := 0; i < len(posts); i++ {
+		post := posts[i]
+		fmt.Println(post.Body)
+		fmt.Printf("=============%v================", i)
 
-	r := <-longRunningTask()
-	fmt.Println(r)
+	}
+	fmt.Println()
 
 }

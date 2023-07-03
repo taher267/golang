@@ -1,8 +1,7 @@
-package async
+package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 )
 
@@ -13,9 +12,9 @@ type PostResponse struct {
 	Body   string `json:"body"`
 }
 
-func async() {
+func Async() []PostResponse {
 	// Make the http request
-	url, url2 := "https://jsonplaceholder.typicode.com/posts", "https://jsonplaceholder.cypress.io/todos"
+	url := "https://jsonplaceholder.typicode.com/posts"
 
 	resp, err := http.Get(url)
 	if err != nil {
@@ -31,16 +30,15 @@ func async() {
 	if err := json.NewDecoder(resp.Body).Decode(&posts); err != nil {
 		print(err)
 	}
-
 	// Print the result on the console
 	// fmt.Printf("UserId: %v\n", post.UserId)
 	// fmt.Printf("Id: %v\n", post.Id)
 	// fmt.Printf("Title: %v\n", post.Title)
 	// fmt.Println(post)
-	for i := 0; i < len(posts); i++ {
-		post := posts[i]
-		fmt.Println(post.Body)
+	// for i := 0; i < len(posts); i++ {
+	// 	post := posts[i]
+	// 	fmt.Println(post.Body)
 
-	}
-	fmt.Println(url2)
+	// }
+	return posts
 }
