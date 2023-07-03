@@ -1,0 +1,9 @@
+{
+  "name": "w3hchools",
+  "version": "1.0.0",
+  "main": "main.go",
+  "license": "MIT",
+  "scripts": {
+    "start": "go run main.go"
+  }
+}

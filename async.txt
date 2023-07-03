@@ -1,0 +1,46 @@
+package async
+
+import (
+	"encoding/json"
+	"fmt"
+	"net/http"
+)
+
+type PostResponse struct {
+	UserId int    `json:"userId"`
+	Id     int    `json:"id"`
+	Title  string `json:"title"`
+	Body   string `json:"body"`
+}
+
+func async() {
+	// Make the http request
+	url, url2 := "https://jsonplaceholder.typicode.com/posts", "https://jsonplaceholder.cypress.io/todos"
+
+	resp, err := http.Get(url)
+	if err != nil {
+		print(err)
+	}
+
+	// Close the body
+	defer resp.Body.Close()
+
+	var posts []PostResponse
+
+	// Decode the JSON response
+	if err := json.NewDecoder(resp.Body).Decode(&posts); err != nil {
+		print(err)
+	}
+
+	// Print the result on the console
+	// fmt.Printf("UserId: %v\n", post.UserId)
+	// fmt.Printf("Id: %v\n", post.Id)
+	// fmt.Printf("Title: %v\n", post.Title)
+	// fmt.Println(post)
+	for i := 0; i < len(posts); i++ {
+		post := posts[i]
+		fmt.Println(post.Body)
+
+	}
+	fmt.Println(url2)
+}
