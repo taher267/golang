@@ -1,0 +1,29 @@
+package paddle
+
+import (
+	"fmt"
+	"io"
+	"net/http"
+	"strings"
+)
+
+func main() {
+
+	url := "https://vendors.paddle.com/api/2.0/product/list_coupons"
+
+	payload := strings.NewReader("vendor_id=<>&vendor_auth_code=<>&product_id=761162")
+
+	req, _ := http.NewRequest("POST", url, payload)
+
+	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+	req.Header.Add("Accept", "application/json")
+
+	res, _ := http.DefaultClient.Do(req)
+
+	defer res.Body.Close()
+	body, _ := io.ReadAll(res.Body)
+
+	fmt.Println(res)
+	fmt.Println(string(body))
+
+}
